@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	div.container
+	{
+		display: flex;              /* establish flex container */
+		flex-direction: column;     /* stack flex items vertically */
+		justify-content: center;    /* center items vertically, in this case */
+		align-items: center;        /* center items horizontally, in this case */
+		height: 600px;
+		/*border: 1px solid black;*/
+	}
+
+	div.balloon
+	{
+		width: 200px;
+		height: 200px;
+		margin: auto;
+		padding: 10px;
+		top: 30%;
+		left: 400px;
+		border: 2px solid #000;
+		background-color: red;
+		border-radius: 50%;
+	}
+</style>
+<script>
+	document.getElementById("balloon").onclick = function() {grow()};
+	
+	function grow() {
+	  document.getElementById("balloon").innerHTML = "YOU CLICKED ME!";
+	}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="balloon" id="balloon">
+		</div>
+	</div>
+</body>
+</html>
