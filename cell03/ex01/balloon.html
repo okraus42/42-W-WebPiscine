@@ -34,8 +34,8 @@
 		
 		function click() {
 			size = document.getElementById("balloon").getBoundingClientRect().width;
+			size -= 4;
 			console.log(size);
-			size -=4;
 			size += 10;
 			clicks += 1;
 			if (size > 420)
@@ -49,8 +49,8 @@
 		
 		function leave() {
 			size = document.getElementById("balloon").getBoundingClientRect().width;
+			size -= 4;
 			console.log(size);
-			size -=4;
 			size -= 5;
 			clicks -= 1;
 			if (size < 200)

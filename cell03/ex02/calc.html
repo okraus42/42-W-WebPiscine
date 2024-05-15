@@ -6,87 +6,104 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Calculator</title>
 	<script>
-		function calcuMath() {
-			var z;
-			var x = parseInt(document.getElementById("firstNum").value, 10);
-			console.log(x);
-			var y = parseInt(document.getElementById("secNum").value, 10);
+		function digitsOnly(str) {
+			if (!str)
+				return false;
+			if (!'+123456789'.includes(str.charAt(0)) && str.length > 1)
+				return false;
+			if ('0123456789'.includes(str.charAt(0)) && str.length == 1)
+				return true;
+			for (let i = 1; i < str.length; i++) {
+				if (!'0123456789'.includes(str.charAt(i)))
+					return false;
+			}
+			if (str.length == 1)
+				return false;
+			return true;
+		}
+
+		function calculate() {
+			var res;
+			var check;
+			var str1 = document.getElementById("first").value;
+			var num1 = parseInt(str1, 10);
+			var str2 = document.getElementById("second").value;
+			var num2 = parseInt(str2, 10);
 			var sel = document.getElementById("fallDown");
 			var selection = sel.options[sel.selectedIndex].value;
-			var more = document.getElementById("add");
-			var rest = document.getElementById("less");
-			var multi = document.getElementById("multi");
-			var divi = document.getElementById("divi");
-			var modul = document.getElementById("modul");
-			if (1)
+			if (digitsOnly(str1) && digitsOnly(str2))
 			{
-				if (selection == "add") {
-					z = parseFloat(x) + parseFloat(y);
-					alert(z);
-					console.log(z);
+				if (selection == "addition") {
+					res = parseFloat(num1) + parseFloat(num2);
+					alert(res);
+					console.log(res);
 				}
-				if (selection == "less") {
-					z = parseFloat(x) - parseFloat(y);
-					alert(z);
-					console.log(z);
+				else if (selection == "subtraction") {
+					res = parseFloat(num1) - parseFloat(num2);
+					alert(res);
+					console.log(res);
 				}
-				if (selection == "multi") {
-					z = parseFloat(x) * parseFloat(y);
-					alert(z);
-					console.log(z);
+				else if (selection == "multiplication") {
+					res = parseFloat(num1) * parseFloat(num2);
+					alert(res);
+					console.log(res);
 				}
-				if (selection == "divi") {
-					if (y == 0)
+				else if (selection == "division") {
+					if (num2 == 0)
 					{
 						alert("It’s over 9000!");
 						console.log("It’s over 9000!");
 					}
 					else
 					{
-						z = parseFloat(x) / parseFloat(y);
-						alert(z);
-						console.log(z);
+						res = parseFloat(num1) / parseFloat(num2);
+						alert(res);
+						console.log(res);
 					}
 				}
-				if (selection == "modul") {
-					if (y == 0)
+				else if (selection == "modulo") {
+					if (num2 == 0)
 					{
 						alert("It’s over 9000!");
 						console.log("It’s over 9000!");
 					}
 					else
 					{
-						z = parseFloat(x) % parseFloat(y);
-						alert(z);
-						console.log(z);
+						res = parseFloat(num1) % parseFloat(num2);
+						alert(res);
+						console.log(res);
 					}
+				}
+				else {
+					alert("Error :(");
+					console.log("Error :(");
 				}
 			}
-			else{
+			else {
 				alert("Error :(");
 				console.log("Error :(");
 			}
 		}
 		setTimeout(reminder, 30000);
 		function reminder() {
-			alert("Please, use me");
+			alert("Please, use me...");
 		}
 	</script>
 </head>
 <body>
 	<div class="container">
-		<p>If you want to make a calculation, enter the numbers and choose the corresponding option:</p>
-		<input type="text" id="firstNum" pattern="[0-9]+" />
+		<p>Calculator:</p>
+		<input type="text" id="first" />
 		<select id="fallDown">
 			<option>Choose</option>
-			<option value="add" id="add">+</option>
-			<option value="less" id="less">-</option>
-			<option value="multi" id="multi">*</option>
-			<option value="divi" id="divi">/</option>
-			<option value="modul" id="modul">%</option>
+			<option value="addition" id="addition">+</option>
+			<option value="subtraction" id="subtraction">-</option>
+			<option value="multiplication" id="multiplication">*</option>
+			<option value="division" id="division">/</option>
+			<option value="modulo" id="modulo">%</option>
 		</select>
-		<input type="text" id="secNum" pattern="[0-9]+" />
-		<input type="submit" value="Try Me!" onclick="calcuMath()">
+		<input type="text" id="second" />
+		<input type="submit" value="Try Me!" onclick="calculate()">
 	</div>
 </body>
 </html>
