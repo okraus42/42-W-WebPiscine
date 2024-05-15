@@ -17,7 +17,7 @@
 		width: 200px;
 		height: 200px;
 		margin: auto;
-		padding: 10px;
+		padding: 0px;
 		top: 30%;
 		left: 400px;
 		border: 2px solid #000;
@@ -26,10 +26,39 @@
 	}
 </style>
 <script>
-	document.getElementById("balloon").onclick = function() {grow()};
-	
-	function grow() {
-	  document.getElementById("balloon").innerHTML = "YOU CLICKED ME!";
+	let clicks = 333333;
+	let	size;
+	const colors = ["red", "green", "blue"];
+	window.onload = function() {
+		document.getElementById("balloon").onclick = function() {click()};
+		
+		function click() {
+			size = document.getElementById("balloon").getBoundingClientRect().width;
+			console.log(size);
+			size -=4;
+			size += 10;
+			clicks += 1;
+			if (size > 420)
+				size = 200;
+			document.getElementById('balloon').style.width = size.toString() + "px";
+			document.getElementById('balloon').style.height = size.toString() + "px";;
+			document.getElementById('balloon').style.background = colors[clicks % 3];
+		}
+
+		document.getElementById("balloon").onmouseleave = function() {leave()};
+		
+		function leave() {
+			size = document.getElementById("balloon").getBoundingClientRect().width;
+			console.log(size);
+			size -=4;
+			size -= 5;
+			clicks -= 1;
+			if (size < 200)
+				size = 200;
+			document.getElementById('balloon').style.width = size.toString() + "px";
+			document.getElementById('balloon').style.height = size.toString() + "px";
+			document.getElementById('balloon').style.background = colors[clicks % 3];
+		}
 	}
 	</script>
 </head>

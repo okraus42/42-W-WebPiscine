@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator</title>
+	<script>
+		function calcuMath() {
+			var z;
+			var x = parseInt(document.getElementById("firstNum").value, 10);
+			console.log(x);
+			var y = parseInt(document.getElementById("secNum").value, 10);
+			var sel = document.getElementById("fallDown");
+			var selection = sel.options[sel.selectedIndex].value;
+			var more = document.getElementById("add");
+			var rest = document.getElementById("less");
+			var multi = document.getElementById("multi");
+			var divi = document.getElementById("divi");
+			var modul = document.getElementById("modul");
+			if (1)
+			{
+				if (selection == "add") {
+					z = parseFloat(x) + parseFloat(y);
+					alert(z);
+					console.log(z);
+				}
+				if (selection == "less") {
+					z = parseFloat(x) - parseFloat(y);
+					alert(z);
+					console.log(z);
+				}
+				if (selection == "multi") {
+					z = parseFloat(x) * parseFloat(y);
+					alert(z);
+					console.log(z);
+				}
+				if (selection == "divi") {
+					if (y == 0)
+					{
+						alert("It’s over 9000!");
+						console.log("It’s over 9000!");
+					}
+					else
+					{
+						z = parseFloat(x) / parseFloat(y);
+						alert(z);
+						console.log(z);
+					}
+				}
+				if (selection == "modul") {
+					if (y == 0)
+					{
+						alert("It’s over 9000!");
+						console.log("It’s over 9000!");
+					}
+					else
+					{
+						z = parseFloat(x) % parseFloat(y);
+						alert(z);
+						console.log(z);
+					}
+				}
+			}
+			else{
+				alert("Error :(");
+				console.log("Error :(");
+			}
+		}
+		setTimeout(reminder, 30000);
+		function reminder() {
+			alert("Please, use me");
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<p>If you want to make a calculation, enter the numbers and choose the corresponding option:</p>
+		<input type="text" id="firstNum" pattern="[0-9]+" />
+		<select id="fallDown">
+			<option>Choose</option>
+			<option value="add" id="add">+</option>
+			<option value="less" id="less">-</option>
+			<option value="multi" id="multi">*</option>
+			<option value="divi" id="divi">/</option>
+			<option value="modul" id="modul">%</option>
+		</select>
+		<input type="text" id="secNum" pattern="[0-9]+" />
+		<input type="submit" value="Try Me!" onclick="calcuMath()">
+	</div>
+</body>
+</html>
