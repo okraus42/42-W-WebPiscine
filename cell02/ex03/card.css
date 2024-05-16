@@ -3,18 +3,71 @@ table {
 	width: 600px;
 }
 
+.image img {
+	border-radius: 50%;
+	width: 300px;
+	height: 300px;
+	object-fit: cover;
+	object-position: 100% 0;
+  }
+
 td {
 	text-align: center;
 }
 
+.card {
+	background-color: white;
+	color:  black;
+	height: 75px;
+	font-size: 3em;
+	font-weight: bold;
+}
+
+.image {
+	background-color: white;
+	color:  white;
+	height: 300px;
+	font-size: 3em;
+}
+
+.name {
+	background-color: white;
+	color:  black;
+	height: 75px;
+	text-decoration: double;
+	font-size: 4em;
+}
+
+.title {
+	background-color: white;
+	color:  gray;
+	height: 50px;
+	font-size: 2em;
+}
+
+.school {
+	background-color: white;
+	color:  black;
+	height: 50px;
+	font-size: 2em;
+}
+
+.socials {
+	background-color: white;
+	color:  white;
+	height: 50px;
+}
+
+
 .contact {
 	background-color: black;
 	color:  white;
-	height: 75px;
+	height: 50px;
 	font-size: 3em;
 }
-/* 
-td:nth-child(3) {
-	background-color: black;
+
+.contact a {
+	display: block;
 	color:  white;
-} */
+	text-decoration: none;
+}
