@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 2rem;
+        }
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            
+        }
+
+        .operator-select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .submit-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+        <input class="input-field" type="text" id="leftOperand" placeholder="Left Operand">
+        <select class="operator-select" id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input class="input-field" type="text" id="rightOperand" placeholder="Right Operand">
+        <input class="submit-button" type="button" value="Try me!" onclick="calculate()">
+        <p class="result" id="result"></p>
+    </div>
+
+    <script>
+        function calculate() {
+  const leftOperand = parseFloat($('#leftOperand').val());
+  const rightOperand = parseFloat($('#rightOperand').val());
+  const operator = $('#operator').val();
+
+  if (isNaN(leftOperand) || isNaN(rightOperand) || leftOperand < 0 || rightOperand < 0) {
+    alert('Error :(');
+    console.log('Error :(');
+    return;
+  }
+
+  let result;
+
+  switch (operator) {
+    case '+':
+      result = leftOperand + rightOperand;
+      break;
+    case '-':
+      result = leftOperand - rightOperand;
+      break;
+    case '*':
+      result = leftOperand * rightOperand;
+      break;
+    case '/':
+      if (rightOperand === 0) {
+        alert("It's over 9000!");
+        console.log("It's over 9000!");
+        return;
+      }
+      result = leftOperand / rightOperand;
+      break;
+    case '%':
+      if (rightOperand === 0) {
+        alert("It's over 9000!");
+        console.log("It's over 9000!");
+        return;
+      }
+      result = leftOperand % rightOperand;
+      break;
+    default:
+      result = "Invalid Operator";
+  }
+
+  alert(`Result: ${result}`);
+  console.log(`Result: ${result}`);
+}
+
+$(document).ready(function() {
+  // Display the "Please, use me..." alert every 30 seconds
+  setInterval(function() {
+    alert("Please, use me...");
+  }, 30000);
+});
+
+$(document).ready(function() {
+  $('#calculateButton').click(calculate); // Assuming you have a button with the id 'calculateButton'
+});
+
+    </script>
+</body>
+
+</html>

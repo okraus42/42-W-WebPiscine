@@ -1,56 +1,60 @@
-function addItem(){
-	var text=document.getElementById('objective').value;
-	if(text.length>0){
-		var list = new Date();
-		setCookie('obj'+list.getTime(),encodeURIComponent(text));
-		addListItem('obj'+list.getTime(),text);
-		document.getElementById('objective').value='';
+// Function to create a new TO-DO
+window.onload = function() {
+function createToDo() {
+		const todoText = prompt("Enter a new TO-DO:");
+		if (todoText) {
+			const todoDiv = document.createElement("div");
+			todoDiv.textContent = todoText;
+			todoDiv.addEventListener("click", removeToDo);
+			document.getElementById("ft_list").prepend(todoDiv);
+			saveToCookie();
+		}
 	}
-	prompt ("This is a prompt box", "Add to the list");  
-	function enter(e, input){
-	var code = (e.keyCode ? e.keyCode : e.which);
-	if(code == 13) {
-		addItem();
+	
+	// Function to remove a TO-DO
+	function removeToDo() {
+		const shouldRemove = confirm("Do you want to remove this TO-DO?");
+		if (shouldRemove) {
+			this.remove();
+			saveToCookie();
+		}
 	}
-}
-}
-
-function setCookie(sName, sValue){
-	document.cookie = sName + '=' + escape(sValue);
-	var date = new Date();
-	date.setMonth(date.getYear()+1);
-	document.cookie += ('; expires=' + date.toUTCString()); 
-}
-
-function unsetCookie(sName){
-	document.cookie = sName + '=; expires=Fri, 31 Dec 1999 23:59:59 GMT;';
-}
-
-function checkForObjectives(){
-	var list=document.getElementById('list');
-	var cookies = document.cookie.split('; ');
-	cookies.sort();
-	for (var i=0; i < cookies.length; i++){
-		var part = cookies[i].split('=');
-		if(part[0].indexOf('obj')===0){
-		try{
-			addListItem(part[0],decodeURI(decodeURI(part[1])));
-			}
-			catch(error){
-				console.log(error.message+' '+part[1]);
+	
+	// Function to save the TO-DOs as cookies
+	function saveToCookie() {
+		const todos = [];
+		const todoElements = document.querySelectorAll("#ft_list > div");
+		for (const todo of todoElements) {
+			todos.push(todo.textContent);
+		}
+		const todoListString = JSON.stringify(todos);
+		document.cookie = `todoList=${todoListString}; max-age=31536000; SameSite=None; Secure; path=/`;
+	}
+	
+	// Function to load TO-DOs from cookies
+	function loadFromCookie() {
+		//removing the todolist from the cookie
+		const cookieValue = document.cookie.replace(
+			/(?:(?:^|.*;\s*)todoList\s*=\s*([^;]*).*$)|^.*$/,
+			"$1"
+		);
+		//const cookieValue = document.cookie;
+		console.log(document.cookie);
+		console.log(cookieValue);
+		if (cookieValue) {
+			const todos = JSON.parse(cookieValue);
+			for (const todoText of todos) {
+				const todoDiv = document.createElement("div");
+				todoDiv.textContent = todoText;
+				todoDiv.addEventListener("click", removeToDo);
+				document.getElementById("ft_list").append(todoDiv);
 			}
 		}
 	}
+	
+	// Attach event listeners
+	document.getElementById("newButton").addEventListener("click", createToDo);
+	
+	// Load TO-DOs from cookies when the page loads
+	loadFromCookie();
 }
-
-function addListItem(id,text){
-	var list = document.getElementById('list');
-	list.innerHTML+='<li id='+id+'>'+text+' <button onclick="deleteItem(\''+id+'\')">X</button></li>';
-}
-
-function deleteItem(id){
-if (confirm("¿Quieres borrarlo?"))
-{
-  document.getElementById(id).style.display='none';
-	  unsetCookie(id);
-}}

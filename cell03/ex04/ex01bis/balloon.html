@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .balloon {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            background-color: red;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 15rem auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="balloon" id="balloon"></div>
+
+    <script>
+        const colors = ['red', 'green', 'blue'];
+let currentIndex = 0;
+let currentSize = 200;
+
+function changeColorAndGrow() {
+  const balloon = $('#balloon');
+  balloon.css('background-color', colors[currentIndex]);
+  currentSize += 10;
+  if (currentSize <= 420) {
+    balloon.css('width', currentSize + 'px');
+    balloon.css('height', currentSize + 'px');
+  } else {
+    currentSize = 100;
+    balloon.css('width', currentSize + 'px');
+    balloon.css('height', currentSize + 'px');
+  }
+  currentIndex = (currentIndex + 1) % colors.length;
+}
+
+function shrinkAndChangeColor() {
+  const balloon = $('#balloon');
+  currentSize -= 5;
+  if (currentSize >= 100) {
+    balloon.css('width', currentSize + 'px');
+    balloon.css('height', currentSize + 'px');
+  } else {
+    currentSize = 420;
+    balloon.css('width', currentSize + 'px');
+    balloon.css('height', currentSize + 'px');
+  }
+  currentIndex = (currentIndex - 1 + colors.length) % colors.length;
+  balloon.css('background-color', colors[currentIndex]);
+}
+
+$(document).ready(function() {
+  const balloon = $('#balloon');
+  balloon.click(changeColorAndGrow);
+  balloon.mouseleave(shrinkAndChangeColor);
+});
+
+    </script>
+</body>
+
+</html>
