@@ -3,10 +3,10 @@ window.onload = function() {
 function newToDo() {
 		const todoText = prompt("Enter a new TO-DO:");
 		if (todoText) {
-			const todoDiv = document.createElement("div");
+			const todoDiv = $("<div>").text(todoText);
 			todoDiv.textContent = todoText;
-			todoDiv.addEventListener("click", delToDo);
-			document.getElementById("ft_list").prepend(todoDiv);
+			todoDiv.click(delToDo);
+			$("#ft_list").prepend(todoDiv);
 			saveToCookie();
 		}
 	}
@@ -14,7 +14,7 @@ function newToDo() {
 	function delToDo() {
 		const shouldRemove = confirm("Do you want to remove this TO-DO?");
 		if (shouldRemove) {
-			this.remove();
+			$(this).remove();
 			saveToCookie();
 		}
 	}
@@ -22,9 +22,9 @@ function newToDo() {
 	function saveToCookie() {
 		const todos = [];
 		const todoElements = document.querySelectorAll("#ft_list > div");
-		for (const todo of todoElements) {
-			todos.push(todo.textContent);
-		}
+		$("#ft_list > div").each(function() {
+			todos.push($(this).text());
+		});
 		console.log(todos);
 		const todoListString = JSON.stringify(todos);
 		console.log(todoListString );
@@ -40,15 +40,14 @@ function newToDo() {
 		if (cookieValue) {
 			const todos = JSON.parse(cookieValue);
 			for (const todoText of todos) {
-				const todoDiv = document.createElement("div");
-				todoDiv.textContent = todoText;
-				todoDiv.addEventListener("click", delToDo);
-				document.getElementById("ft_list").append(todoDiv);
+				const todoDiv = $("<div>").text(todoText);
+				todoDiv.click(delToDo);
+				$("#ft_list").append(todoDiv);
 			}
 		}
 	}
 	
-	document.getElementById("newButton").addEventListener("click", newToDo);
+	$("#newButton").click(newToDo);
 	
 	loadFromCookie();
 }
