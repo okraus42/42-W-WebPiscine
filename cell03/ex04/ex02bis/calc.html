@@ -1,133 +1,119 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Simple Calculator</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 2rem;
-        }
-        .calculator {
-            width: 300px;
-            margin: 0 auto;
-        }
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script>
+		function digitsOnly(str) {
+			if (!str)
+				return false;
+			if (!'+123456789'.includes(str.charAt(0)) && str.length > 1)
+				return false;
+			if ('0123456789'.includes(str.charAt(0)) && str.length == 1)
+				return true;
+			for (let i = 1; i < str.length; i++) {
+				if (!'0123456789'.includes(str.charAt(i)))
+					return false;
+			}
+			if (str.length == 1)
+				return false;
+			return true;
+		}
 
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-            
-        }
+		function calculate() {
+			var res;
+			var check;
+			var str1 = document.getElementById("first").value;
+			var num1 = parseInt(str1, 10);
+			var str2 = document.getElementById("second").value;
+			var num2 = parseInt(str2, 10);
+			var sel = document.getElementById("fallDown");
+			var selection = sel.options[sel.selectedIndex].value;
+			if (digitsOnly(str1) && digitsOnly(str2))
+			{
+				if (selection == "addition") {
+					res = parseFloat(num1) + parseFloat(num2);
+					alert(res);
+					console.log(res);
+				}
+				else if (selection == "subtraction") {
+					res = parseFloat(num1) - parseFloat(num2);
+					alert(res);
+					console.log(res);
+				}
+				else if (selection == "multiplication") {
+					res = parseFloat(num1) * parseFloat(num2);
+					alert(res);
+					console.log(res);
+				}
+				else if (selection == "division") {
+					if (num2 == 0)
+					{
+						alert("It’s over 9000!");
+						console.log("It’s over 9000!");
+					}
+					else
+					{
+						res = parseFloat(num1) / parseFloat(num2);
+						alert(res);
+						console.log(res);
+					}
+				}
+				else if (selection == "modulo") {
+					if (num2 == 0)
+					{
+						alert("It’s over 9000!");
+						console.log("It’s over 9000!");
+					}
+					else
+					{
+						res = parseFloat(num1) % parseFloat(num2);
+						alert(res);
+						console.log(res);
+					}
+				}
+				else {
+					alert("Error :(");
+					console.log("Error :(");
+				}
+			}
+			else {
+				alert("Error :(");
+				console.log("Error :(");
+			}
+		}
+		setTimeout(reminder, 30000);
+		function reminder() {
+			alert("Please, use me...");
+		}
+		$(document).ready(function() {
+		// Display the "Please, use me..." alert every 30 seconds
+		setInterval(function() {
+			alert("Please, use me...");
+		}, 30000);
+		});
 
-        .operator-select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .submit-button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .result {
-            margin-top: 10px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-    </style>
+		$(document).ready(function() {
+			$('#calcB').click(calculate); // Assuming you have a button with the id 'calcB'
+		});
+	</script>
 </head>
-
 <body>
-    <div class="calculator">
-        <h1>Calculator</h1>
-        <input class="input-field" type="text" id="leftOperand" placeholder="Left Operand">
-        <select class="operator-select" id="operator">
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">*</option>
-            <option value="/">/</option>
-            <option value="%">%</option>
-        </select>
-        <input class="input-field" type="text" id="rightOperand" placeholder="Right Operand">
-        <input class="submit-button" type="button" value="Try me!" onclick="calculate()">
-        <p class="result" id="result"></p>
-    </div>
-
-    <script>
-        function calculate() {
-  const leftOperand = parseFloat($('#leftOperand').val());
-  const rightOperand = parseFloat($('#rightOperand').val());
-  const operator = $('#operator').val();
-
-  if (isNaN(leftOperand) || isNaN(rightOperand) || leftOperand < 0 || rightOperand < 0) {
-    alert('Error :(');
-    console.log('Error :(');
-    return;
-  }
-
-  let result;
-
-  switch (operator) {
-    case '+':
-      result = leftOperand + rightOperand;
-      break;
-    case '-':
-      result = leftOperand - rightOperand;
-      break;
-    case '*':
-      result = leftOperand * rightOperand;
-      break;
-    case '/':
-      if (rightOperand === 0) {
-        alert("It's over 9000!");
-        console.log("It's over 9000!");
-        return;
-      }
-      result = leftOperand / rightOperand;
-      break;
-    case '%':
-      if (rightOperand === 0) {
-        alert("It's over 9000!");
-        console.log("It's over 9000!");
-        return;
-      }
-      result = leftOperand % rightOperand;
-      break;
-    default:
-      result = "Invalid Operator";
-  }
-
-  alert(`Result: ${result}`);
-  console.log(`Result: ${result}`);
-}
-
-$(document).ready(function() {
-  // Display the "Please, use me..." alert every 30 seconds
-  setInterval(function() {
-    alert("Please, use me...");
-  }, 30000);
-});
-
-$(document).ready(function() {
-  $('#calculateButton').click(calculate); // Assuming you have a button with the id 'calculateButton'
-});
-
-    </script>
+	<div class="container">
+		<p>Calculator:</p>
+		<input type="text" id="first" />
+		<select id="fallDown">
+			<option value="addition" id="addition">+</option>
+			<option value="subtraction" id="subtraction">-</option>
+			<option value="multiplication" id="multiplication">*</option>
+			<option value="division" id="division">/</option>
+			<option value="modulo" id="modulo">%</option>
+		</select>
+		<input type="text" id="second" />
+		<input type="submit" value="Try Me!" id ="calcB">
+	</div>
 </body>
-
 </html>

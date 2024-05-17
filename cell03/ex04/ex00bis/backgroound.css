@@ -1,24 +1,17 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+	background-color: white;
+}
+
+.container {
+	height: 200px;
+	position: relative;
   }
   
-  .container {
-    text-align: center;
+  .vertical-center {
+	margin: 0;
+	position: relative;
+	top: 20px;
+	left: 20px;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
   }
-  
-  button {
-    font-size: 20px;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
